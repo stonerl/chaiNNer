@@ -135,6 +135,15 @@ const Feature = memo(
             return d.installed && versionGt(d.version, d.installed);
         });
 
+        const boxSharedProps = {
+          borderRadius: 25,
+          color: 'white',
+          display: 'inline-block',
+          fontSize: 'xs',
+          ml: 3,
+          px: 2,
+        };
+
         return (
             <AccordionItem cursor="pointer">
                 <h2>
