@@ -135,6 +135,7 @@ const config = {
                         '--share=network',
                         '--socket=fallback-x11',
                         '--socket=wayland',
+                        '--talk-name=org.freedesktop.Notifications',
                     ],
                     id: 'app.chainner',
                     modules: ['org.freedesktop.Sdk.Extension.node18'],
