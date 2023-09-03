@@ -1,0 +1,52 @@
+name: Release Test - Flatpak
+
+on:
+    pull_request:
+        branches: ['*']
+        types:
+            - opened
+            - synchronize
+            - closed
+        paths:
+            - '.github/**'
+            - 'package.json'
+            - 'package-lock.json'
+            - 'forge.config.js'
+            - 'webpack*.js'
+    push:
+        branches: [flatpak]
+
+    workflow_dispatch:
+
+permissions: read-all
+
+jobs:
+    release-test:
+        runs-on: ${{ matrix.os }}
+
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+                  cache: 'npm'
+            - run: npm ci
+            - name: Install necessary FlatPak tools
+              if: ${{ matrix.os == 'ubuntu-latest' }}
+              run: |
+                  sudo apt update && sudo apt install flatpak flatpak-builder elfutils
+                  flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+                  flatpak install --noninteractive --assumeyes --user flathub org.freedesktop.Platform//22.08 org.freedesktop.Sdk//22.08 org.electronjs.Electron2.BaseApp//22.08 flathub org.freedesktop.Sdk.Extension.node18//22.08
+            - name: publish --dry-run
+              shell: bash
+              run: |
+                  npm ci
+                  if [[ "${{ matrix.os }}" != "macos-latest" ]]; then
+                      npm run publish -- --dry-run
+                  else
+                      npm run publish -- --dry-run --arch=universal
+                  fi

@@ -81,10 +81,10 @@ const config = {
                 loadingGif: './src/public/icons/win/installing_loop.gif',
             },
         },
-        {
+        /*         {
             name: '@electron-forge/maker-zip',
             platforms: ['linux', 'win32'],
-        },
+        }, */
         {
             name: '@electron-forge/maker-dmg',
             config: {
@@ -105,7 +105,7 @@ const config = {
                 },
             },
         },
-        {
+        /*         {
             name: '@electron-forge/maker-deb',
             config: {
                 options: {
@@ -118,6 +118,36 @@ const config = {
             name: '@electron-forge/maker-rpm',
             config: {
                 options: { ...makerOptions, compressionLevel: 9 },
+            },
+        }, */
+        {
+            name: '@electron-forge/maker-flatpak',
+            config: {
+                options: {
+                    ...makerOptions,
+                    base: 'org.electronjs.Electron2.BaseApp',
+                    baseVersion: '22.08',
+                    branch: 'main',
+                    finishArgs: [
+                        '--device=dri',
+                        '--filesystem=home',
+                        '--filesystem=xdg-desktop',
+                        '--filesystem=xdg-documents',
+                        '--filesystem=xdg-download',
+                        '--filesystem=xdg-music',
+                        '--filesystem=xdg-pictures',
+                        '--filesystem=xdg-public-share',
+                        '--filesystem=xdg-videos',
+                        '--share=ipc',
+                        '--share=network',
+                        '--socket=fallback-x11',
+                        '--socket=wayland',
+                    ],
+                    id: 'app.chainner',
+                    runtime: 'org.freedesktop.Platform',
+                    runtimeVersion: '22.08',
+                    sdk: 'org.freedesktop.Sdk',
+                },
             },
         },
     ],
