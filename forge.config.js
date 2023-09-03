@@ -144,6 +144,7 @@ const config = {
                         '--socket=wayland',
                     ],
                     id: 'app.chainner',
+                    modules: ['org.freedesktop.Sdk.Extension.node18'],
                     runtime: 'org.freedesktop.Platform',
                     runtimeVersion: '22.08',
                     sdk: 'org.freedesktop.Sdk',
