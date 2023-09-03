@@ -131,13 +131,6 @@ const config = {
                     finishArgs: [
                         '--device=dri',
                         '--filesystem=home',
-                        '--filesystem=xdg-desktop',
-                        '--filesystem=xdg-documents',
-                        '--filesystem=xdg-download',
-                        '--filesystem=xdg-music',
-                        '--filesystem=xdg-pictures',
-                        '--filesystem=xdg-public-share',
-                        '--filesystem=xdg-videos',
                         '--share=ipc',
                         '--share=network',
                         '--socket=fallback-x11',
